@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import './css/App.css';
+import Home from './Home';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import GroupList from './BookList';
+import GroupEdit from './BookEdit';
+import {CookiesProvider} from 'react-cookie';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+        <CookiesProvider>
+          <Router>
+            <Switch>
+              <Route path='/' exact={true} render={() => <Home/>}/>
+              <Route path='/books' exact={true} render={(props) => <GroupList {...props}/>}/>
+              <Route path='/book/:id' exact={true} render={() => <GroupEdit/>}/>
+            </Switch>
+          </Router>
+        </CookiesProvider>
+    )
+  }
 }
 
 export default App;
